@@ -1,14 +1,13 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import '../styles/global.sass';
 
 const navOptions = [
   { link: '/', text: 'Inicio' },
   { link: '/contacto', text: 'Contacto' },
 ];
 
-const Index = () => {
-  return <Layout navOptions={navOptions}>Index</Layout>;
+const Contacto = () => {
+  return <Layout navOptions={navOptions}>Contacto</Layout>;
 };
 
-export default Index;
+export default Contacto;
