@@ -1,6 +1,8 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import Button from './common/Button';
+import Typography from './common/Typography';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,12 +17,13 @@ const NavBar = ({ navOptions }) => {
   return (
     <Wrapper>
       {navOptions.map(({ link, text }, i) => (
-        <Link to={link} className='btn' key={i}>
-          {text}
-        </Link>
+        <Button variant='link' href={link}>{text}</Button>
       ))}
     </Wrapper>
   );
 };
 
 export default NavBar;
+/*  <Link to={link} className='btn' key={i}>
+          <Typography variant='h2'></Typography>
+        </Link> */
