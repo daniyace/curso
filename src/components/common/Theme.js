@@ -39,7 +39,7 @@ export const media = {
 export const colors = {
   primary: {
     dark: '#7fc798',
-    main: '#a2e3b9',
+    main: '#431280',
     medium: '#bdebce',
     mediumLight: '#d0f1dc',
     light: '#e8f8ed',
@@ -74,8 +74,8 @@ export const colors = {
   },
 };
 
-const sansSerif = 'Karla, Arial, Helvetica, sans-serif';
-const serif = 'Playfair Display, serif';
+const sansSerif = 'Montserrat, sans-serif';
+const serif = 'Open Sans, sans-serif';
 
 const makeFont = (
   isSerif,

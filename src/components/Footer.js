@@ -8,10 +8,16 @@ import {
   faTwitter,
   faGooglePlus,
 } from '@fortawesome/free-brands-svg-icons';
+import Typography from './common/Typography';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+`;
+
+const IconsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 0 auto;
   a {
@@ -24,6 +30,12 @@ const Wrapper = styled.div`
     color: #000;
     font-size: 2rem;
   }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const footerLinks = [
@@ -45,20 +57,36 @@ const Socialbtn = ({ href, title, icon }) => {
 const Footer = () => {
   return (
     <Wrapper>
-      <div id='footercont'>
+      <TextWrapper className='col'>
         <div>
-          {footerLinks.map((link, index) => {
-            return (
-              <Socialbtn
-                href={link.href}
-                title={link.title}
-                icon={link.icon}
-                key={index}
-              />
-            );
-          })}
+          <Typography variant='subtitle4'>Nuestras direcciones:</Typography>
+          <Typography variant='body4'>Guerrero #100 Centro</Typography>
+          <Typography variant='body4'>Trujano #301 Centro</Typography>
         </div>
-      </div>
+      </TextWrapper>
+      <IconsWrapper className='col'>
+        <div id='footercont'>
+          <div>
+            {footerLinks.map((link, index) => {
+              return (
+                <Socialbtn
+                  href={link.href}
+                  title={link.title}
+                  icon={link.icon}
+                  key={index}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </IconsWrapper>
+      <TextWrapper className='col'>
+        <div>
+          <Typography variant='subtitle4'>Llámanos</Typography>
+          <Typography variant='body4'>Guerrero: Tel. 951 5166680</Typography>
+          <Typography variant='body4'>Trujano: Tel. 951 5163434</Typography>
+        </div>
+      </TextWrapper>
     </Wrapper>
   );
 };
