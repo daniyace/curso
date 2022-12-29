@@ -8,7 +8,7 @@ import {
   faTwitter,
   faGooglePlus,
 } from '@fortawesome/free-brands-svg-icons';
-import Typography from './common/Typography';
+import Typography from '../common/Typography';
 
 const Wrapper = styled.div`
   display: flex;
