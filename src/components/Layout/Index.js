@@ -8,7 +8,7 @@ const Layout = ({ children, navOptions = [] }) => {
     <>
       <Header navOptions={navOptions} />
       <Hero />
-      {children}
+      <main>{children}</main>
       <Footer />
     </>
   );
