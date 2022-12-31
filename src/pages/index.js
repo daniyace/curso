@@ -5,6 +5,7 @@ import '../styles/global.sass';
 const navOptions = [
   { link: '/', text: 'Inicio' },
   { link: '/contacto', text: 'Contacto' },
+  { link: '/productos', text: 'Productos' },
 ];
 
 const Index = () => {
