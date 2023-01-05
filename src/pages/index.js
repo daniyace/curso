@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../AppContext';
 import Layout from '../components/Layout';
 import '../styles/global.sass';
 
@@ -9,7 +10,8 @@ const navOptions = [
 ];
 
 const Index = () => {
-  return <Layout navOptions={navOptions}>Index</Layout>;
+  const { navOptionsGlobales } = useContext(AppContext);
+  return <Layout navOptions={navOptionsGlobales}>Index</Layout>;
 };
 
 export default Index;

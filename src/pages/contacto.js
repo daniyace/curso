@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import Typography from '../components/common/Typography';
 import Layout from '../components/Layout';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { AppContext } from '../AppContext';
 
 const Wrapper = styled.div`
   display: flex;
@@ -153,6 +154,8 @@ const navOptions = [
   );
 }; */
 const Contacto = () => {
+  const { navOptionsGlobales } = useContext(AppContext);
+
   const validationSchema = Yup.object({
     name: Yup.string().required('El nombre es requerido'),
     email: Yup.string()
@@ -187,7 +190,7 @@ const Contacto = () => {
   const renderError = (message) => <p className='text-danger'>{message}</p>;
 
   return (
-    <Layout navOptions={navOptions}>
+    <Layout navOptions={navOptionsGlobales}>
       <Wrapper>
         <Typography>Formulario de contacto</Typography>
         <Formik

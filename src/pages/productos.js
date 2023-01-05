@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Layout from '../components/Layout';
+import { AppContext } from '../AppContext';
 
 const navOptions = [
   { link: '/', text: 'Inicio' },
@@ -8,6 +9,7 @@ const navOptions = [
 ];
 
 const Productos = () => {
+  const { categoriasContext } = useContext(AppContext);
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaActual, setCategoriaActual] = useState('');
@@ -84,6 +86,7 @@ const Productos = () => {
 
   return (
     <Layout navOptions={navOptions}>
+      <p>local</p>
       {categorias.map((categoria, index) => (
         <div
           className='btn btn-outline-dark mx-2'
@@ -93,6 +96,17 @@ const Productos = () => {
           {categoria.name}
         </div>
       ))}
+      <p>contexto</p>
+      {categoriasContext.map((categoria, index) => (
+        <div
+          className='btn btn-outline-dark mx-2'
+          key={index}
+          onClick={() => setCategoriaActual(categoria.id)}
+        >
+          {categoria.name}
+        </div>
+      ))}
+
       <p className='my-2'>Categoria actual: {categoriaActual || 'ninguna'}</p>
       <div className='btn btn-outline-dark my-2' onClick={limpiar}>
         Limpiar
