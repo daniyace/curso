@@ -9,7 +9,7 @@ const navOptions = [
 ];
 
 const Productos = () => {
-  const { categoriasContext } = useContext(AppContext);
+  const { categoriasContext, themeChoose, changeTheme } = useContext(AppContext);
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaActual, setCategoriaActual] = useState('');
@@ -117,6 +117,10 @@ const Productos = () => {
       {productos.map((producto, index) => (
         <p key={index}>{producto.title}</p>
       ))}
+
+      <div className={`btn btn-outline-${themeChoose ? 'dark' : 'primary'} my-2`} onClick={changeTheme}>
+      {themeChoose ? 'Verdadero' : 'Falso'}
+      </div>
     </Layout>
   );
 };
