@@ -33,6 +33,7 @@ const ContextProvider = ({ children }) => {
     { link: "/", text: "Inicio" },
     { link: "/contacto", text: "Contacto" },
     { link: "/productos", text: "Productos" },
+    { link: '/calculadora', text: 'Calculadora' },
   ];
 
   const initialValue = {

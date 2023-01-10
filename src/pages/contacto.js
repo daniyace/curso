@@ -29,6 +29,7 @@ const InputWrapper = styled.div`
 const navOptions = [
   { link: '/', text: 'Inicio' },
   { link: '/contacto', text: 'Contacto' },
+  { link: '/calculadora', text: 'Calculadora' },
 ];
 
 /* const Contacto = () => {
