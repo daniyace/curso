@@ -8,38 +8,59 @@ import {
 
 function Numpad() {
 
+  const [currentNumber, setCurrentNumber] = useState(0);
+  const [currentSign, setCurrentSign] = useState("");
+  const [total, setTotal] = useState(0);
+
     const numClickHandler = (e) => {
+      console.log('prev val', currentNumber);
         e.preventDefault();
         const value = e.target.innerHTML;
         console.log(value);
-        setCurrentVal(value);
-        console.log('current val', currentVal);
+        setCurrentNumber(value);
+        console.log('current val', currentNumber);
     }
 
-    const [currentVal, setCurrentVal] = useState(0);
+    const signClickHandler = (e) => {
+      console.log('prev Symbol', currentSign);
+      e.preventDefault();
+      const value = e.target.innerHTML;
+      console.log(value);
+      setCurrentSign(value);
+      console.log('current Symbol', currentSign);
+  }
+
+  const zeroClickHandler = () => {
+    console.log('before', currentNumber,  currentSign, total);
+    setCurrentNumber(0);
+    setCurrentSign("");
+    setTotal(0);
+    console.log('total', currentNumber,  currentSign, total);
+}
+    
   return (
     <div className='numPad'>
         <div className='numGrid'>
             Numpad
-            <div className='numC blu' onClick={(value) => numClickHandler(value) }>C</div>
-            <div className='numDivide blu' onClick={(value) => numClickHandler(value) }>%</div>
-            <div className='numTimes blu' onClick={(value) => numClickHandler(value) }>X</div>
+            <div className='numC blu' onClick={() => zeroClickHandler() }>C</div>
+            <div className='numDivide blu' onClick={(value) => signClickHandler(value) }>%</div>
+            <div className='numTimes blu' onClick={(value) => signClickHandler(value) }>X</div>
             <div className='numBack blu' onClick={(value) => numClickHandler(value) }><FontAwesomeIcon icon={ faDeleteLeft } /></div>
             <div className='num7 blu' onClick={(value) => numClickHandler(value) }>7</div>
             <div className='num8 blu' onClick={(value) => numClickHandler(value) }>8</div>
             <div className='num9 blu' onClick={(value) => numClickHandler(value) }>9</div>
-            <div className='numMinus blu' onClick={(value) => numClickHandler(value) }>-</div>
+            <div className='numMinus blu' onClick={(value) => signClickHandler(value) }>-</div>
             <div className='num4 blu' onClick={(value) => numClickHandler(value) }>4</div>
             <div className='num5 blu' onClick={(value) => numClickHandler(value) }>5</div>
             <div className='num6 blu' onClick={(value) => numClickHandler(value) }>6</div>
-            <div className='numPlus blu' onClick={(value) => numClickHandler(value) }>+</div>
+            <div className='numPlus blu' onClick={(value) => signClickHandler(value) }>+</div>
             <div className='num1 blu' onClick={(value) => numClickHandler(value) }>1</div>
             <div className='num2 blu' onClick={(value) => numClickHandler(value) }>2</div>
             <div className='num3 blu' onClick={(value) => numClickHandler(value) }>3</div>
-            <div className='equals blu' onClick={(value) => numClickHandler(value) }>=</div>
-            <div className='plusMinus blu' onClick={(value) => numClickHandler(value) }>+-</div>
+            <div className='equals blu' onClick={(value) => signClickHandler(value) }>=</div>
+            <div className='plusMinus blu' onClick={(value) => signClickHandler(value) }>+-</div>
             <div className='num0 blu' onClick={(value) => numClickHandler(value) }>0</div>
-            <div className='point blu' onClick={(value) => numClickHandler(value) }>.</div>
+            <div className='point blu' onClick={(value) => signClickHandler(value) }>.</div>
         </div>
     </div>
   )
