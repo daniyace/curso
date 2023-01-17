@@ -13,33 +13,41 @@ function Numpad() {
   const [total, setTotal] = useState(0);
 
     const numClickHandler = (e) => {
-      console.log('prev val', currentNumber);
         e.preventDefault();
         const value = e.target.innerHTML;
-        console.log(value);
-        setCurrentNumber(value);
-        console.log('current val', currentNumber);
+        let values = [];
+        values.push(currentNumber, value);
+        console.log("values", values);
+        let tot = Number(values.join(''));
+        console.log(tot, typeof(tot));
+        setCurrentNumber(tot);
     }
 
     const signClickHandler = (e) => {
-      console.log('prev Symbol', currentSign);
       e.preventDefault();
       const value = e.target.innerHTML;
-      console.log(value);
       setCurrentSign(value);
-      console.log('current Symbol', currentSign);
   }
 
   const zeroClickHandler = () => {
-    console.log('before', currentNumber,  currentSign, total);
     setCurrentNumber(0);
     setCurrentSign("");
     setTotal(0);
-    console.log('total', currentNumber,  currentSign, total);
-}
-    
+  }
+
+  const posNegClickHandler = () => {
+    let value = currentNumber * -1;
+    console.log('before', currentNumber, value);
+    setCurrentNumber(value);
+    console.log('now', currentNumber,  value);
+  }
+
   return (
     <div className='numPad'>
+      <div className='calcScreen'>
+        <h2>{currentNumber}</h2>
+        <h2 value={currentNumber ? currentNumber : total}></h2>
+      </div>
         <div className='numGrid'>
             Numpad
             <div className='numC blu' onClick={() => zeroClickHandler() }>C</div>
@@ -58,7 +66,7 @@ function Numpad() {
             <div className='num2 blu' onClick={(value) => numClickHandler(value) }>2</div>
             <div className='num3 blu' onClick={(value) => numClickHandler(value) }>3</div>
             <div className='equals blu' onClick={(value) => signClickHandler(value) }>=</div>
-            <div className='plusMinus blu' onClick={(value) => signClickHandler(value) }>+-</div>
+            <div className='plusMinus blu' onClick={(value) => posNegClickHandler(value) }>+-</div>
             <div className='num0 blu' onClick={(value) => numClickHandler(value) }>0</div>
             <div className='point blu' onClick={(value) => signClickHandler(value) }>.</div>
         </div>
