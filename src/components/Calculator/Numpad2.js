@@ -7,6 +7,7 @@ import {
 
 const Numpad = () => {
   const [currentNumber, setCurrentNumber] = useState(0);
+  const [otherNumber, setOtherNumber] = useState(0);
   const [currentSign, setCurrentSign] = useState("");
   const [total, setTotal] = useState(0);
 
@@ -25,10 +26,11 @@ const Numpad = () => {
       e.preventDefault();
       const value = e.target.innerHTML;
       setCurrentSign(value);
-  }
+    }
 
   const zeroClickHandler = () => {
     setCurrentNumber(0);
+    setOtherNumber(0);
     setCurrentSign("");
     setTotal(0);
   }
@@ -40,23 +42,63 @@ const Numpad = () => {
     console.log('now', currentNumber,  value);
   }
 
+  const operationHandler = (value) => {
+    setOtherNumber(currentNumber);
+    setCurrentNumber(0);
+    setCurrentSign(value);
+    console.log("other number", otherNumber, "current number", currentNumber)
+  }
+
+  const equalsHandler = () => {
+    console.log({currentNumber, otherNumber})
+    let total = 0;
+    switch (currentSign) {
+      case "+":
+        total = currentNumber + otherNumber;
+        console.log(total);
+        zeroClickHandler();
+        setCurrentNumber(total);
+      break;
+      case "-":
+        total = otherNumber - currentNumber;
+        console.log(total);
+        zeroClickHandler();
+        setCurrentNumber(total);
+      break;
+      case "*":
+        total = currentNumber * otherNumber;
+        console.log(total);
+        zeroClickHandler();
+        setCurrentNumber(total);
+      break;
+      case "%":
+        total =  otherNumber / currentNumber;
+        console.log(total);
+        zeroClickHandler();
+        setCurrentNumber(total);
+      break;
+      default:
+        break;
+    }
+  }
+
   const arr= [
     {label: 'C', className: 'numC blu', onClick: () => zeroClickHandler() },
-    {label: '%', className: 'numDivide blu', onClick: (value) => signClickHandler(value) },
-    {label: 'X', className: 'numTimes blu', onClick: (value) => signClickHandler(value) },
+    {label: '%', className: 'numDivide blu', onClick: (value) => operationHandler('%') },
+    {label: 'X', className: 'numTimes blu', onClick: (value) => operationHandler('*') },
     {label: <FontAwesomeIcon icon={ faDeleteLeft } />, className: 'numBack blu', onClick: (value) => numClickHandler(value) },
-    {label: '7', className: 'num7 blu', onClick: () => numClickHandler('7') },
+    {label: '7', className: 'num7 blu', onClick: () => numClickHandler('7')},
     {label: '8', className: 'num8 blu', onClick: () => numClickHandler('8') },
     {label: '9', className: 'num9 blu', onClick: () => numClickHandler('9') },
-    {label: '-', className: 'numMinus blu', onClick: (value) => signClickHandler(value) },
+    {label: '-', className: 'numMinus blu', onClick: (value) => operationHandler('-') },
     {label: '4', className: 'num4 blu', onClick: (value) => numClickHandler('4') },
     {label: '5', className: 'num5 blu', onClick: (value) => numClickHandler('5') },
     {label: '6', className: 'num6 blu', onClick: (value) => numClickHandler('6') },
-    {label: '+', className: 'numPlus blu', onClick: (value) => signClickHandler(value) },
+    {label: '+', className: 'numPlus blu', onClick: (value) => operationHandler('+') },
     {label: '1', className: 'num1 blu', onClick: (value) => numClickHandler('1') },
     {label: '2', className: 'num2 blu', onClick: (value) => numClickHandler('2') },
     {label: '3', className: 'num3 blu', onClick: (value) => numClickHandler('3') },
-    {label: '=', className: 'equals blu', onClick: (value) => signClickHandler(value) },
+    {label: '=', className: 'equals blu', onClick: (value) => equalsHandler() },
     {label: '+/-', className: 'plusMinus blu', onClick: (value) => posNegClickHandler(value) },
     {label: '0', className: 'num0 blu', onClick: (value) => numClickHandler('0') },
     {label: '.', className: 'point blu', onClick: (value) => numClickHandler('.') },
@@ -66,8 +108,9 @@ const Numpad = () => {
   return (
     <div className='numPad'>
       <div className='calcScreen'>
+        <h2>{otherNumber ? otherNumber : ""}</h2>
+        <h3>{currentSign}</h3>
         <h2>{currentNumber}</h2>
-        <h2 value={currentNumber ? currentNumber : total}></h2>
       </div>
         <div className='numGrid'>
             Numpad
