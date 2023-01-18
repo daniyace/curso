@@ -5,15 +5,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 
-function Numpad() {
-
+const Numpad = () => {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [currentSign, setCurrentSign] = useState("");
   const [total, setTotal] = useState(0);
 
-    const numClickHandler = (e) => {
-        e.preventDefault();
-        const value = e.target.innerHTML;
+    const numClickHandler = (value) => {
+        //e?.preventDefault();
+        //const value = e.target.innerHTML;
         let values = [];
         values.push(currentNumber, value);
         console.log("values", values);
@@ -41,6 +40,29 @@ function Numpad() {
     console.log('now', currentNumber,  value);
   }
 
+  const arr= [
+    {label: 'C', className: 'numC blu', onClick: () => zeroClickHandler() },
+    {label: '%', className: 'numDivide blu', onClick: (value) => signClickHandler(value) },
+    {label: 'X', className: 'numTimes blu', onClick: (value) => signClickHandler(value) },
+    {label: <FontAwesomeIcon icon={ faDeleteLeft } />, className: 'numBack blu', onClick: (value) => numClickHandler(value) },
+    {label: '7', className: 'num7 blu', onClick: () => numClickHandler('7') },
+    {label: '8', className: 'num8 blu', onClick: () => numClickHandler('8') },
+    {label: '9', className: 'num9 blu', onClick: () => numClickHandler('9') },
+    {label: '-', className: 'numMinus blu', onClick: (value) => signClickHandler(value) },
+    {label: '4', className: 'num4 blu', onClick: (value) => numClickHandler('4') },
+    {label: '5', className: 'num5 blu', onClick: (value) => numClickHandler('5') },
+    {label: '6', className: 'num6 blu', onClick: (value) => numClickHandler('6') },
+    {label: '+', className: 'numPlus blu', onClick: (value) => signClickHandler(value) },
+    {label: '1', className: 'num1 blu', onClick: (value) => numClickHandler('1') },
+    {label: '2', className: 'num2 blu', onClick: (value) => numClickHandler('2') },
+    {label: '3', className: 'num3 blu', onClick: (value) => numClickHandler('3') },
+    {label: '=', className: 'equals blu', onClick: (value) => signClickHandler(value) },
+    {label: '+/-', className: 'plusMinus blu', onClick: (value) => posNegClickHandler(value) },
+    {label: '0', className: 'num0 blu', onClick: (value) => numClickHandler('0') },
+    {label: '.', className: 'point blu', onClick: (value) => numClickHandler('.') },
+    
+]
+
   return (
     <div className='numPad'>
       <div className='calcScreen'>
@@ -49,7 +71,10 @@ function Numpad() {
       </div>
         <div className='numGrid'>
             Numpad
-            <div className='numC blu' onClick={() => zeroClickHandler() }>C</div>
+            {arr.map(({label,className,onClick}, index) => 
+                <div key={index} className={className} onClick={onClick}>{label}</div>
+            )}
+            {/* <div className='numC blu' onClick={() => zeroClickHandler() }>C</div>
             <div className='numDivide blu' onClick={(value) => signClickHandler(value) }>%</div>
             <div className='numTimes blu' onClick={(value) => signClickHandler(value) }>X</div>
             <div className='numBack blu' onClick={(value) => numClickHandler(value) }><FontAwesomeIcon icon={ faDeleteLeft } /></div>
@@ -67,42 +92,9 @@ function Numpad() {
             <div className='equals blu' onClick={(value) => signClickHandler(value) }>=</div>
             <div className='plusMinus blu' onClick={(value) => posNegClickHandler(value) }>+-</div>
             <div className='num0 blu' onClick={(value) => numClickHandler(value) }>0</div>
-            <div className='point blu' onClick={(value) => signClickHandler(value) }>.</div>
+            <div className='point blu' onClick={(value) => signClickHandler(value) }>.</div> */}
         </div>
     </div>
   )
 }
-
-
-
-/*
-function Numpad() {
-  return (
-    <div className='numPad'>
-        <select className='numGrid' value={value} onChange={handleChange}>
-            Numpad
-            <option className='numC blu'>C</option>
-            <option className='numDivide blu'>%</option>
-            <option className='numTimes blu'>X</option>
-            <option className='numBack blu'><FontAwesomeIcon icon={ faDeleteLeft } /></option>
-            <option className='num7 blu'>7</option>
-            <option className='num8 blu'>8</option>
-            <option className='num9 blu'>9</option>
-            <option className='numMinus blu'>-</option>
-            <option className='num4 blu'>4</option>
-            <option className='num5 blu'>5</option>
-            <option className='num6 blu'>6</option>
-            <option className='numPlus blu'>+</option>
-            <option className='num1 blu'>1</option>
-            <option className='num2 blu'>2</option>
-            <option className='num3 blu'>3</option>
-            <option className='equals blu'>=</option>
-            <option className='plusMinus blu'>+-</option>
-            <option className='num0 blu'>0</option>
-            <option className='point blu'>.</option>
-        </select>
-    </div>
-  )
-}*/
-
 export default Numpad

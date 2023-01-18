@@ -1,5 +1,5 @@
 import React from 'react'
-import Numpad from '../components/Calculator/Numpad';
+import Numpad from '../components/Calculator/Numpad2';
 import Screen from '../components/Calculator/Screen';
 import '../styles/calculator.scss';
 
