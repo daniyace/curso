@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faDeleteLeft
+    faDeleteLeft, faL
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -10,6 +10,8 @@ const Numpad = () => {
   const [otherNumber, setOtherNumber] = useState(0);
   const [currentSign, setCurrentSign] = useState("");
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState("");
+  const [history, setHistory] = useState([]);
 
     const numClickHandler = (value) => {
         //e?.preventDefault();
@@ -33,6 +35,7 @@ const Numpad = () => {
     setOtherNumber(0);
     setCurrentSign("");
     setTotal(0);
+    setError("");
   }
 
   const posNegClickHandler = () => {
@@ -49,9 +52,28 @@ const Numpad = () => {
     console.log("other number", otherNumber, "current number", currentNumber)
   }
 
+  const divValidation = () => {
+    console.log('Is it a number?', currentNumber, typeof(currentNumber));
+    if (currentNumber == false) {
+      console.log('Its not a number', currentNumber, typeof(currentNumber));
+      setCurrentNumber(0);
+      setError('Invalid Operation');
+    }
+    console.log('It Passed', currentNumber, typeof(currentNumber));
+  }
+  const historySaver = () => {
+    console.log('Entered history')
+    let myHistory = history.slice();
+    console.log('before adding', myHistory);
+    myHistory.push([otherNumber, currentSign, currentNumber]);
+    console.log('after adding', myHistory);
+    setHistory(myHistory);
+  }
+
   const equalsHandler = () => {
     console.log({currentNumber, otherNumber})
     let total = 0;
+    historySaver();
     switch (currentSign) {
       case "+":
         total = currentNumber + otherNumber;
@@ -76,6 +98,7 @@ const Numpad = () => {
         console.log(total);
         zeroClickHandler();
         setCurrentNumber(total);
+        divValidation();
       break;
       default:
         break;
@@ -108,9 +131,11 @@ const Numpad = () => {
   return (
     <div className='numPad'>
       <div className='calcScreen'>
+        <h2>{error}</h2>
         <h2>{otherNumber ? otherNumber : ""}</h2>
         <h3>{currentSign}</h3>
         <h2>{currentNumber}</h2>
+        <h2>{/*history*/}</h2>
       </div>
         <div className='numGrid'>
             Numpad
