@@ -12,16 +12,16 @@ const Numpad = () => {
   const [total, setTotal] = useState(0);
   const [error, setError] = useState("");
   const [history, setHistory] = useState([]);
+  const [prevMovement, setPrevMovement] = useState(""); //Saved for future reference
+  const [movement, setMovement] = useState("");
+
 
     const numClickHandler = (value) => {
-        //e?.preventDefault();
-        //const value = e.target.innerHTML;
         let values = [];
         values.push(currentNumber, value);
-        console.log("values", values);
         let tot = Number(values.join(''));
-        console.log(tot, typeof(tot));
         setCurrentNumber(tot);
+        lastMovement(tot);
     }
 
     const signClickHandler = (e) => {
@@ -36,66 +36,133 @@ const Numpad = () => {
     setCurrentSign("");
     setTotal(0);
     setError("");
+    setMovement("");
   }
 
   const posNegClickHandler = () => {
     let value = currentNumber * -1;
-    console.log('before', currentNumber, value);
     setCurrentNumber(value);
-    console.log('now', currentNumber,  value);
+    setMovement(value);
   }
 
   const operationHandler = (value) => {
     setOtherNumber(currentNumber);
     setCurrentNumber(0);
     setCurrentSign(value);
-    console.log("other number", otherNumber, "current number", currentNumber)
+    setMovement(value);
   }
 
   const divValidation = () => {
-    console.log('Is it a number?', currentNumber, typeof(currentNumber));
     if (currentNumber == false) {
-      console.log('Its not a number', currentNumber, typeof(currentNumber));
       setCurrentNumber(0);
       setError('Invalid Operation');
     }
-    console.log('It Passed', currentNumber, typeof(currentNumber));
   }
+
+  const historyStorage = () => {
+    let date = { currentTime: new Date().toLocaleString() };
+    console.log(date);
+    console.log(date[1]);
+    console.log(date[2]);
+    const info = {
+      hist: history,
+      dat: date
+    }
+
+    let myStorage = localStorage.setItem('info', JSON.stringify(info));
+    console.log(date);
+    let displayStorage =  localStorage.getItem('info');
+    console.log(displayStorage, 'my storage');
+  }
+
   const historySaver = () => {
-    console.log('Entered history')
     let myHistory = history.slice();
-    console.log('before adding', myHistory);
-    myHistory.push([otherNumber, currentSign, currentNumber]);
-    console.log('after adding', myHistory);
+    console.log('my history', myHistory);
+    let historyString = [otherNumber, currentSign, currentNumber].toString();
+    myHistory.push(historyString);
+    console.log(myHistory, typeof myHistory, "My History");
     setHistory(myHistory);
+    historyStorage();
+  }
+
+  const lastMovement = (value) => {
+    setMovement(value);
+    console.log("current movement", movement)
+  }
+
+  const deleteArrow = () => {
+    if (typeof movement == 'number') {
+      console.log('it entered as a number');
+      /*setPrevMovement(movement);*/
+      let number;
+      let caso;
+      if ( otherNumber === 0) {
+        if ( currentNumber <= 9) {
+          console.log(currentNumber, ' Es menor o igual a 9');
+          setCurrentNumber(0);
+          setMovement(0);
+          caso = '1a';
+          return;
+        } else if ( currentNumber >= -9 && currentNumber < 0) {
+          console.log(currentNumber, ' Es mayor o igual a -9');
+          setCurrentNumber(0);
+          setMovement(0);
+          caso = '1b';
+        }
+        else {
+          number = currentNumber;
+          caso = '1c';
+        }
+      } else {
+        number = otherNumber;
+        caso = '2';
+      }
+      let result = number.toString().substring(0, number.toString().length - 1);
+      let final = parseInt(result);
+      switch (caso) {
+        case '1c':
+          setMovement(currentNumber);
+          setCurrentNumber(final);
+        break;
+        case '2':
+          setMovement(otherNumber);
+          setOtherNumber(final);
+      }      
+      console.log('it entered as a number', movement);
+      console.log('resultado final', final);
+    }
+    else if (typeof movement == 'string') {
+      console.log('it entered as a symbol');
+      /*setPrevMovement(movement);*/
+      setMovement(currentSign);
+      setCurrentSign("");
+      console.log('it entered as a symbol', movement);
+    } else {
+      zeroClickHandler();
+    }
   }
 
   const equalsHandler = () => {
-    console.log({currentNumber, otherNumber})
     let total = 0;
     historySaver();
     switch (currentSign) {
       case "+":
         total = currentNumber + otherNumber;
-        console.log(total);
         zeroClickHandler();
         setCurrentNumber(total);
       break;
       case "-":
         total = otherNumber - currentNumber;
-        console.log(total);
         zeroClickHandler();
         setCurrentNumber(total);
       break;
       case "*":
         total = currentNumber * otherNumber;
-        console.log(total);
         zeroClickHandler();
         setCurrentNumber(total);
       break;
       case "%":
         total =  otherNumber / currentNumber;
-        console.log(total);
         zeroClickHandler();
         setCurrentNumber(total);
         divValidation();
@@ -109,7 +176,7 @@ const Numpad = () => {
     {label: 'C', className: 'numC blu', onClick: () => zeroClickHandler() },
     {label: '%', className: 'numDivide blu', onClick: (value) => operationHandler('%') },
     {label: 'X', className: 'numTimes blu', onClick: (value) => operationHandler('*') },
-    {label: <FontAwesomeIcon icon={ faDeleteLeft } />, className: 'numBack blu', onClick: (value) => numClickHandler(value) },
+    {label: <FontAwesomeIcon icon={ faDeleteLeft } />, className: 'numBack blu', onClick: () => deleteArrow() },
     {label: '7', className: 'num7 blu', onClick: () => numClickHandler('7')},
     {label: '8', className: 'num8 blu', onClick: () => numClickHandler('8') },
     {label: '9', className: 'num9 blu', onClick: () => numClickHandler('9') },
@@ -135,7 +202,7 @@ const Numpad = () => {
         <h2>{otherNumber ? otherNumber : ""}</h2>
         <h3>{currentSign}</h3>
         <h2>{currentNumber}</h2>
-        <h2>{/*history*/}</h2>
+        <h2>History</h2>
       </div>
         <div className='numGrid'>
             Numpad
