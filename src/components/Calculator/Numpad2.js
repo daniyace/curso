@@ -97,7 +97,7 @@ const Numpad = () => {
     
     // // [1, 2, 3, 4], [1, 2, 3, 4]
 
-    let myHistory = {...history};
+    let myHistory = history.slice(); // [...history]
     console.log('my history', myHistory);
     let historyString = [
       otherNumber, 
