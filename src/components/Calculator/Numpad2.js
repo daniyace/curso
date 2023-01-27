@@ -95,7 +95,7 @@ const Numpad = () => {
 
     // console.log(arrA, arrB)
     
-    // // [1, 2, 3, 4], [1, 2, 3, 4]
+    // // [1, 2, 3, 4], [1, 2, 3]
 
     let myHistory = history.slice(); // [...history]
     console.log('my history', myHistory);
