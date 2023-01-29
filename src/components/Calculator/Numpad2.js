@@ -44,7 +44,6 @@ const Numpad = () => {
   const operationHandler = (value) => {
     if (currentNumber !== 0){
       setOtherNumber(+currentNumber);
-      console.log('No es cero');
     }
     setCurrentNumber(0);
     setCurrentSign(value);
@@ -140,7 +139,8 @@ const Numpad = () => {
         console.log('it entered as a symbol');
         setPrevMovement(movement);
         setMovement(currentSign);
-        setCurrentSign('');
+        let aph = "'";
+        setCurrentSign(aph+movement+aph);
         console.log('it entered as a symbol', movement);
         break;
       default:
