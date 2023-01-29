@@ -11,6 +11,7 @@ const Numpad = () => {
   const [history, setHistory] = useState([]);
   const [movement, setMovement] = useState('');
   const [prevMovement, setPrevMovement] = useState('');
+  const [apost, setApost] = useState('');
 
   const numClickHandler = (value) => {
     let values = [];
@@ -18,6 +19,7 @@ const Numpad = () => {
     let tot = Number(values.join(''));
     setCurrentNumber(tot);
     lastMovement(tot);
+    setApost('');
   };
 
   const signClickHandler = (e) => {
@@ -33,6 +35,7 @@ const Numpad = () => {
     setTotal(0);
     setError('');
     setMovement('');
+    setApost('');
   };
 
   const posNegClickHandler = () => {
@@ -48,6 +51,7 @@ const Numpad = () => {
     setCurrentNumber(0);
     setCurrentSign(value);
     setMovement(value);
+    setApost('');
   };
 
   const divValidation = () => {
@@ -139,9 +143,11 @@ const Numpad = () => {
         console.log('it entered as a symbol');
         setPrevMovement(movement);
         setMovement(currentSign);
-        let aph = "'";
-        setCurrentSign(aph+movement+aph);
-        console.log('it entered as a symbol', movement);
+        setApost("'");
+        //let aph = "'";
+        //setCurrentSign(aph+movement+aph);
+        console.log('delete result', currentSign);
+        console.log('Apostrophe on/off', apost);
         break;
       default:
         zeroClickHandler();
@@ -180,6 +186,16 @@ const Numpad = () => {
   const equalsHandler = () => {
     let total = 0;
     historySaver();
+    if (apost !== ""){
+      console.log("Sign Changed");
+      console.log("'",currentSign.includes("'"));
+      console.log("movement", currentSign);
+      //equalsHandler();
+    }
+    else{
+      console.log("No apostrophe",currentSign.includes("'"));
+    };
+    console.log("Before Switch", currentSign);
     switch (currentSign) {
       case '+':
         total = currentNumber + otherNumber;
@@ -303,7 +319,7 @@ const Numpad = () => {
       <div className='calcScreen'>
         <h2>{error}</h2>
         <h2>{otherNumber ? otherNumber : ''}</h2>
-        <h3>{currentSign}</h3>
+        <h3>{apost}{currentSign}{apost}</h3>
         <h2>{currentNumber}</h2>
         <h2>History</h2>
       </div>
