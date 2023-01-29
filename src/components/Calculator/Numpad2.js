@@ -9,8 +9,8 @@ const Numpad = () => {
   const [total, setTotal] = useState(0);
   const [error, setError] = useState('');
   const [history, setHistory] = useState([]);
-  const [prevMovement, setPrevMovement] = useState(''); //Saved for future reference
   const [movement, setMovement] = useState('');
+  const [prevMovement, setPrevMovement] = useState('');
 
   const numClickHandler = (value) => {
     let values = [];
@@ -42,7 +42,10 @@ const Numpad = () => {
   };
 
   const operationHandler = (value) => {
-    setOtherNumber(currentNumber);
+    if (currentNumber !== 0){
+      setOtherNumber(+currentNumber);
+      console.log('No es cero');
+    }
     setCurrentNumber(0);
     setCurrentSign(value);
     setMovement(value);
@@ -64,17 +67,12 @@ const Numpad = () => {
   const historyStorage = () => {
     //Date.now()
     //cada registro debe tener un registro de la fecha 
-    //let date = { currentTime: new Date().toLocaleString() };
-    console.log(date);
-    console.log(date[1]);
-    console.log(date[2]);
     const info = {
       hist: history,
       //dat: date,
     };
 
     localStorage.setItem('info', JSON.stringify(info));
-    // console.log(date);
     // let displayStorage = localStorage.getItem('info');
     // console.log(displayStorage, 'my storage');
   };
@@ -97,7 +95,8 @@ const Numpad = () => {
     
     // // [1, 2, 3, 4], [1, 2, 3]
 
-    let myHistory = history.slice(); // [...history]
+    // let myHistory = history.slice(); // [...history]
+    let myHistory = [...history];
     console.log('my history', myHistory);
     let historyString = [
       otherNumber, 
@@ -118,56 +117,64 @@ const Numpad = () => {
 
   const deleteArrow = () => {
     // si el movimiento es un signo, permitir cambiarlo, si es un numero, borrarlo
-    if (typeof movement == 'number') {
+    switch (typeof movement) {
+      case 'number':
+        console.log('it entered as a number');
+        setPrevMovement(movement);
+        console.log('current number delete', currentNumber);
+        console.log(currentNumber + '');
+          if ((currentNumber + '').length === 1) {
+            console.log(currentNumber, ' Es menor o igual a 9');
+            setCurrentNumber(0);
+            setMovement(0);
+            return;
+          }
+        let result = currentNumber.toString().substring(0, currentNumber.toString().length - 1);
+        let final = parseInt(result);
+        setMovement(currentNumber);
+        setCurrentNumber(final);
+        console.log('it entered as a number', movement);
+        console.log('resultado final', final);
+        break;
+      case 'string':
+        console.log('it entered as a symbol');
+        setPrevMovement(movement);
+        setMovement(currentSign);
+        setCurrentSign('');
+        console.log('it entered as a symbol', movement);
+        break;
+      default:
+        zeroClickHandler();
+    }
+    /*if (typeof movement == 'number') {
       console.log('it entered as a number');
-      /*setPrevMovement(movement);*/
-      let number;
-      let caso;
-      if (otherNumber === 0) { //if no necesario
-        if (currentNumber + ''.length === 1) {
+      setPrevMovement(movement);
+      console.log('current number delete', currentNumber);
+      console.log(currentNumber + '');
+        if ((currentNumber + '').length === 1) {
           console.log(currentNumber, ' Es menor o igual a 9');
           setCurrentNumber(0);
           setMovement(0);
-          caso = '1a';
           return;
-        } else if (currentNumber >= -9 && currentNumber < 0) { //if no necesario
-          console.log(currentNumber, ' Es mayor o igual a -9');
-          setCurrentNumber(0);
-          setMovement(0);
-          caso = '1b';
-        } else {
-          number = currentNumber;
-          caso = '1c';
         }
-      } else {
-        number = otherNumber;
-        caso = '2';
-      }
       // currentNumber+''.split('').pop().join('')
       // currentNumber+''.split('').slice(0, -1).join('')
       // currentNumber+''.substring(0, currentNumber.toString().length - 1)
-      let result = number.toString().substring(0, number.toString().length - 1);
+      let result = currentNumber.toString().substring(0, currentNumber.toString().length - 1);
       let final = parseInt(result);
-      switch (caso) { // switch no necesario
-        case '1c':
-          setMovement(currentNumber);
-          setCurrentNumber(final);
-          break;
-        case '2':
-          setMovement(otherNumber);
-          setOtherNumber(final);
-      }
+      setMovement(currentNumber);
+      setCurrentNumber(final);
       console.log('it entered as a number', movement);
       console.log('resultado final', final);
     } else if (typeof movement == 'string') { // permitir cambiarlo
       console.log('it entered as a symbol');
-      /*setPrevMovement(movement);*/
+      setPrevMovement(movement);
       setMovement(currentSign);
       setCurrentSign('');
       console.log('it entered as a symbol', movement);
     } else {
       zeroClickHandler();
-    }
+    }*/
   };
 
   const equalsHandler = () => {
@@ -199,6 +206,15 @@ const Numpad = () => {
         break;
     }
   };
+
+  const periodAdd = () =>{
+    let value = currentNumber + "";
+    if( value.indexOf(".") == -1){
+     value += ".";
+     setCurrentNumber(value);
+    }
+  }
+
 
   const arr = [
     { label: 'C', className: 'numC blu', onClick: () => zeroClickHandler() },
@@ -278,7 +294,7 @@ const Numpad = () => {
     {
       label: '.',
       className: 'point blu',
-      onClick: (value) => numClickHandler('.'),
+      onClick: (value) => periodAdd(),
     },
   ];
 
