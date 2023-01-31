@@ -120,6 +120,7 @@ const Numpad = () => {
 
   const deleteArrow = () => {
     // si el movimiento es un signo, permitir cambiarlo, si es un numero, borrarlo
+    //Verifying if there is still an
     switch (typeof movement) {
       case 'number':
         console.log('it entered as a number');
@@ -313,6 +314,7 @@ const Numpad = () => {
       onClick: (value) => periodAdd(),
     },
   ];
+  
 
   return (
     <div className='numPad'>
@@ -321,7 +323,14 @@ const Numpad = () => {
         <h2>{otherNumber ? otherNumber : ''}</h2>
         <h3>{apost}{currentSign}{apost}</h3>
         <h2>{currentNumber}</h2>
-        <h2>History</h2>
+      </div>
+      <div>
+        History
+        {history.map((history, index) => (
+          <div key={index}>
+            {history.split(",").join(" ")}
+          </div>
+        ))}
       </div>
       <div className='numGrid'>
         Numpad
