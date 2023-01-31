@@ -61,7 +61,7 @@ const Numpad = () => {
     }
   };
 
-  //useEffect(() => {historyStorage()}, [history]);
+  useEffect(() => {historyStorage()}, [history]);
 
   //useEffect(() => {
   //recuperar el historial de la memoria local y asignarlo al estado
@@ -76,8 +76,8 @@ const Numpad = () => {
     };
 
     localStorage.setItem('info', JSON.stringify(info));
-    // let displayStorage = localStorage.getItem('info');
-    // console.log(displayStorage, 'my storage');
+    let displayStorage = localStorage.getItem('info');
+    console.log(displayStorage, 'my storage');
   };
 
   const historySaver = () => {
@@ -110,7 +110,7 @@ const Numpad = () => {
     myHistory.push(historyString);
     console.log(myHistory, typeof myHistory, 'My History');
     setHistory(myHistory);
-    //historyStorage();
+    historyStorage();
   };
 
   const lastMovement = (value) => {
@@ -120,7 +120,6 @@ const Numpad = () => {
 
   const deleteArrow = () => {
     // si el movimiento es un signo, permitir cambiarlo, si es un numero, borrarlo
-    //Verifying if there is still an
     switch (typeof movement) {
       case 'number':
         console.log('it entered as a number');
@@ -145,8 +144,6 @@ const Numpad = () => {
         setPrevMovement(movement);
         setMovement(currentSign);
         setApost("'");
-        //let aph = "'";
-        //setCurrentSign(aph+movement+aph);
         console.log('delete result', currentSign);
         console.log('Apostrophe on/off', apost);
         break;
@@ -191,7 +188,6 @@ const Numpad = () => {
       console.log("Sign Changed");
       console.log("'",currentSign.includes("'"));
       console.log("movement", currentSign);
-      //equalsHandler();
     }
     else{
       console.log("No apostrophe",currentSign.includes("'"));
@@ -325,7 +321,7 @@ const Numpad = () => {
         <h2>{currentNumber}</h2>
       </div>
       <div>
-        History
+        Today's History
         {history.map((history, index) => (
           <div key={index}>
             {history.split(",").join(" ")}
