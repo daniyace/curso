@@ -4,6 +4,7 @@ import React, { createContext, useEffect, useState } from "react";
 const ContextProvider = ({ children }) => {
   const [categoriasContext, setCategoriasContext] = useState([]);
   const [themeChoose, setThemeChoose] = useState(true);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     const getCategorias = async () => {
@@ -41,6 +42,8 @@ const ContextProvider = ({ children }) => {
     navOptionsGlobales,
     themeChoose,
     changeTheme,
+    history,
+    setHistory,
   };
 
   return (
@@ -57,4 +60,6 @@ export const AppContext = createContext({
   navOptionsGlobales: [],
   themeChoose: true,
   changeTheme: () => {},
+  setHistory:() => {},
+  history: []
 });

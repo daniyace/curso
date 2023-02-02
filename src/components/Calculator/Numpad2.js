@@ -1,19 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft, faL } from '@fortawesome/free-solid-svg-icons';
+import {AppContext} from '../../AppContext';
 
 const Numpad = () => {
+  const {history, setHistory} = useContext(AppContext);
   const [currentNumber, setCurrentNumber] = useState(0);
   const [otherNumber, setOtherNumber] = useState(0);
   const [currentSign, setCurrentSign] = useState('');
   const [total, setTotal] = useState(0);
   const [error, setError] = useState('');
-  const [history, setHistory] = useState([]);
   const [movement, setMovement] = useState('');
   const [prevMovement, setPrevMovement] = useState('');
   const [apost, setApost] = useState('');
+  const [firstLoad, setLoad] = useState(true);
+  const [otherSign, setOtherSign] = useState(0);
+  const [didEqual, setEqual] = useState(false);
 
   const numClickHandler = (value) => {
+    equalsValidator();
+    console.log(currentNumber, "Num after equalValidator");
     let values = [];
     values.push(currentNumber, value);
     let tot = Number(values.join(''));
@@ -27,6 +33,17 @@ const Numpad = () => {
     const value = e.target.innerHTML;
     setCurrentSign(value);
   };
+
+  const equalsValidator = async () => {
+    if(didEqual == true) {
+      console.log(didEqual, "after entering");
+      await setCurrentNumber(0);
+      await setEqual(false);
+      console.log(didEqual, "after Setting");
+      console.log(currentNumber, "Num after Setting");
+      return;
+    }
+  }
 
   const zeroClickHandler = () => {
     setCurrentNumber(0);
@@ -44,14 +61,18 @@ const Numpad = () => {
     setMovement(value);
   };
 
-  const operationHandler = (value) => {
+  const operationHandler = async (value) => {
     if (currentNumber !== 0){
       setOtherNumber(+currentNumber);
     }
-    setCurrentNumber(0);
-    setCurrentSign(value);
-    setMovement(value);
-    setApost('');
+    if (currentSign !== "" && currentNumber !== 0){
+      const total = await equalsHandler();
+      setOtherNumber(total);
+    }
+      setCurrentNumber(0);
+      setCurrentSign(value);
+      setMovement(value);
+      setApost('');
   };
 
   const divValidation = () => {
@@ -61,23 +82,28 @@ const Numpad = () => {
     }
   };
 
-  useEffect(() => {historyStorage()}, [history]);
+  useEffect(() => {historyStorage()}, [history, firstLoad]);
 
-  //useEffect(() => {
-  //recuperar el historial de la memoria local y asignarlo al estado
-  //}, []);
+  useEffect(() => {
+    let displayStorage = localStorage.getItem('info');
+    if (displayStorage !== undefined) {
+      setHistory(JSON.parse(displayStorage)?.hist || []);
+      setLoad(false);
+    }
+  }, []);
 
+  
   const historyStorage = () => {
     //Date.now()
     //cada registro debe tener un registro de la fecha 
+    
     const info = {
       hist: history,
       //dat: date,
     };
-
-    localStorage.setItem('info', JSON.stringify(info));
-    let displayStorage = localStorage.getItem('info');
-    console.log(displayStorage, 'my storage');
+    if (!firstLoad) {
+      localStorage.setItem('info', JSON.stringify(info));
+    }
   };
 
   const historySaver = () => {
@@ -184,15 +210,16 @@ const Numpad = () => {
   const equalsHandler = () => {
     let total = 0;
     historySaver();
-    if (apost !== ""){
+    /*if (apost !== ""){
       console.log("Sign Changed");
       console.log("'",currentSign.includes("'"));
       console.log("movement", currentSign);
     }
     else{
       console.log("No apostrophe",currentSign.includes("'"));
-    };
+    };*/
     console.log("Before Switch", currentSign);
+    setEqual(true);
     switch (currentSign) {
       case '+':
         total = currentNumber + otherNumber;
@@ -218,6 +245,7 @@ const Numpad = () => {
       default:
         break;
     }
+    return total;
   };
 
   const periodAdd = () =>{
@@ -322,11 +350,11 @@ const Numpad = () => {
       </div>
       <div>
         Today's History
-        {history.map((history, index) => (
+        {/*history.map((history, index) => (
           <div key={index}>
             {history.split(",").join(" ")}
           </div>
-        ))}
+        ))*/}
       </div>
       <div className='numGrid'>
         Numpad
@@ -359,3 +387,8 @@ const Numpad = () => {
   );
 };
 export default Numpad;
+
+//Si currentSign y currentNumber no estan
+//vacios y presiono simbolo, ejecuto 
+// un igual y seteo el resultado como
+// otherNumber y el signo como current sign
