@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft, faL } from '@fortawesome/free-solid-svg-icons';
 import {AppContext} from '../../AppContext';
+import '../../styles/calculator.scss';
 
 const Numpad = () => {
   const {history, setHistory} = useContext(AppContext);
@@ -17,11 +18,17 @@ const Numpad = () => {
   const [otherSign, setOtherSign] = useState(0);
   const [didEqual, setEqual] = useState(false);
 
-  const numClickHandler = (value) => {
-    equalsValidator();
+  const numClickHandler = async (value) => {
+    //await equalsValidator();
     console.log(currentNumber, "Num after equalValidator");
     let values = [];
-    values.push(currentNumber, value);
+    if(didEqual){
+      values = [value];
+    }
+    else{
+      values.push(currentNumber, value);
+      setEqual(false);
+    }
     let tot = Number(values.join(''));
     setCurrentNumber(tot);
     lastMovement(tot);
@@ -34,16 +41,16 @@ const Numpad = () => {
     setCurrentSign(value);
   };
 
-  const equalsValidator = async () => {
-    if(didEqual == true) {
-      console.log(didEqual, "after entering");
-      await setCurrentNumber(0);
-      await setEqual(false);
-      console.log(didEqual, "after Setting");
-      console.log(currentNumber, "Num after Setting");
-      return;
+  /*const equalsValidator = async () => {
+    let values = [];
+    if(didEqual){
+    values = [value];
     }
-  }
+    else{
+    values.push(currentNumber, value);
+    setEqual(false);
+    }
+  }*/
 
   const zeroClickHandler = () => {
     setCurrentNumber(0);
@@ -258,83 +265,83 @@ const Numpad = () => {
 
 
   const arr = [
-    { label: 'C', className: 'numC blu', onClick: () => zeroClickHandler() },
+    { label: 'C', className: 'numC pinku keyCenter', onClick: () => zeroClickHandler() },
     {
       label: '%',
-      className: 'numDivide blu',
+      className: 'numDivide pinku keyCenter',
       onClick: (value) => operationHandler('%'),
     },
     {
       label: 'X',
-      className: 'numTimes blu',
+      className: 'numTimes pinku keyCenter',
       onClick: (value) => operationHandler('*'),
     },
     {
       label: <FontAwesomeIcon icon={faDeleteLeft} />,
-      className: 'numBack blu',
+      className: 'numBack bg-danger keyCenter',
       onClick: () => deleteArrow(),
     },
-    { label: '7', className: 'num7 blu', onClick: () => numClickHandler('7') },
-    { label: '8', className: 'num8 blu', onClick: () => numClickHandler('8') },
-    { label: '9', className: 'num9 blu', onClick: () => numClickHandler('9') },
+    { label: '7', className: 'num7 blu keyCenter', onClick: () => numClickHandler('7') },
+    { label: '8', className: 'num8 blu keyCenter', onClick: () => numClickHandler('8') },
+    { label: '9', className: 'num9 blu keyCenter', onClick: () => numClickHandler('9') },
     {
       label: '-',
-      className: 'numMinus blu',
+      className: 'numMinus pinku keyCenter',
       onClick: (value) => operationHandler('-'),
     },
     {
       label: '4',
-      className: 'num4 blu',
+      className: 'num4 blu keyCenter',
       onClick: (value) => numClickHandler('4'),
     },
     {
       label: '5',
-      className: 'num5 blu',
+      className: 'num5 blu keyCenter',
       onClick: (value) => numClickHandler('5'),
     },
     {
       label: '6',
-      className: 'num6 blu',
+      className: 'num6 blu keyCenter',
       onClick: (value) => numClickHandler('6'),
     },
     {
       label: '+',
-      className: 'numPlus blu',
+      className: 'numPlus pinku keyCenter',
       onClick: (value) => operationHandler('+'),
     },
     {
       label: '1',
-      className: 'num1 blu',
+      className: 'num1 blu keyCenter',
       onClick: (value) => numClickHandler('1'),
     },
     {
       label: '2',
-      className: 'num2 blu',
+      className: 'num2 blu keyCenter',
       onClick: (value) => numClickHandler('2'),
     },
     {
       label: '3',
-      className: 'num3 blu',
+      className: 'num3 blu keyCenter',
       onClick: (value) => numClickHandler('3'),
     },
     {
       label: '=',
-      className: 'equals blu',
+      className: 'equals greeny keyCenter',
       onClick: (value) => equalsHandler(),
     },
     {
       label: '+/-',
-      className: 'plusMinus blu',
+      className: 'plusMinus pinku keyCenter',
       onClick: (value) => posNegClickHandler(value),
     },
     {
       label: '0',
-      className: 'num0 blu',
+      className: 'num0 blu keyCenter',
       onClick: (value) => numClickHandler('0'),
     },
     {
       label: '.',
-      className: 'point blu',
+      className: 'point pinku keyCenter',
       onClick: (value) => periodAdd(),
     },
   ];
@@ -342,22 +349,22 @@ const Numpad = () => {
 
   return (
     <div className='numPad'>
-      <div className='calcScreen'>
-        <h2>{error}</h2>
-        <h2>{otherNumber ? otherNumber : ''}</h2>
-        <h3>{apost}{currentSign}{apost}</h3>
-        <h2>{currentNumber}</h2>
-      </div>
-      <div>
-        Today's History
-        {/*history.map((history, index) => (
-          <div key={index}>
-            {history.split(",").join(" ")}
-          </div>
-        ))*/}
+      <div className='screenCont'>
+        <div className='calcScreen'>
+          <h2>{otherNumber ? otherNumber : ''}</h2>
+          <h3>{apost}{currentSign}{apost}</h3>
+          <h2>{currentNumber ? currentNumber : error}</h2>
+        </div>
+        <div className='calcHist'>
+          Today's History
+          {history.map((history, index) => (
+            <div key={index}>
+              {history.split(",").join(" ")}
+            </div>
+          ))}
+        </div>
       </div>
       <div className='numGrid'>
-        Numpad
         {arr.map(({ label, className, onClick }, index) => (
           <div key={index} className={className} onClick={onClick}>
             {label}

@@ -1,8 +1,16 @@
 /* ==================================================================================================================================================================================================================================================================================================
 GENERAL BODY 
 ==================================================================================================================================================================================================================================================================================================*/
-body{
+/*body{
     background: #debc4c;
+}*/
+@font-face {
+    font-family: 'Montserrat', sans-serif;
+    src: local('Montserrat', sans-serif), url('../fonts/Montserrat/Montserrat-VariableFont_wght.ttf')
+    format('woff');
+}
+body{
+    font-family: 'Montserrat', sans-serif;
 }
 .calcCont{
     width: 100%;
@@ -13,27 +21,88 @@ body{
     bottom: 0;
     margin: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     height: 100%;
     align-items: center;
+    background: url('../images/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /*background: #D0F4DE;*/
     .calcInner{
-        background: #333F4B;
+        /*background: #333F4B;*/
+        /*background: linear-gradient(0deg, hsla(330, 77%, 49%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);*/
+        background: #E4C1F9;
         color: #fff;
+        border: 5px solid #ffF;
+        border-radius: 10px;
+        padding: 10px;
+        @media(max-width: 767px){
+            max-width: 350px;
+        }
+        .numPad{
+            .screenCont{
+                display: flex;
+                justify-content: space-around;
+                .calcScreen{
+                    display: flex;
+                    background: #8bd3f7;
+                    color: #fff;
+                    border-radius: 15px;
+                    padding: 10px;
+                    justify-content: center;
+                    border: 3px solid #fff;
+                    width: 100%;
+                    align-items: center;
+                    margin: 10px;
+                    width: 300px;
+                    font-weight: 800;
+                }
+                .calcHist{
+                    margin: 10px;
+                    background: #fef49d;
+                    border: 3px solid #fff;
+                    border-radius: 15px;
+                    padding: 10px;
+                    color: rgb(121, 121, 121);
+                    overflow-y: auto;
+                    height: 150px;
+                }
+            }
+        }
     }
 }
-
+.keyCenter{
+    border: 3px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+}
 /* ==================================================================================================================================================================================================================================================================================================
 NUMPAD
 ==================================================================================================================================================================================================================================================================================================*/
 .numPad{
     .numGrid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(5, 1fr);
         grid-column-gap: 5px;
         grid-row-gap: 5px;
             .blu{
-                background: #005fe4;
+                background: hsl(200, 87%, 76%);
+            }
+            .pinku{
+                background: #FF99C8;
+            }
+            .numBack{
+                border: 3px solid #fff;
+            }
+            .greeny{
+                background: #bbf7d2;
+                color: rgb(121, 121, 121);
             }
             .numC { grid-area: 1 / 1 / 2 / 2; }
             .numDivide { grid-area: 1 / 2 / 2 / 3; }
