@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDeleteLeft, faL } from '@fortawesome/free-solid-svg-icons';
-import {AppContext} from '../../AppContext';
+import { AppContext } from '../../AppContext';
 import '../../styles/calculator.scss';
 
 const Numpad = () => {
-  const {history, setHistory} = useContext(AppContext);
+  const { history, setHistory } = useContext(AppContext);
   const [currentNumber, setCurrentNumber] = useState(0);
   const [otherNumber, setOtherNumber] = useState(0);
   const [currentSign, setCurrentSign] = useState('');
@@ -20,15 +20,14 @@ const Numpad = () => {
 
   const numClickHandler = async (value) => {
     //await equalsValidator();
-    console.log(currentNumber, "Num after equalValidator");
+    console.log(currentNumber, 'Num after equalValidator');
     let values = [];
-    if(didEqual){
+    if (didEqual) {
       values = [value];
-    }
-    else{
+    } else {
       values.push(currentNumber, value);
-      setEqual(false);
     }
+    setEqual(false);
     let tot = Number(values.join(''));
     setCurrentNumber(tot);
     lastMovement(tot);
@@ -69,17 +68,17 @@ const Numpad = () => {
   };
 
   const operationHandler = async (value) => {
-    if (currentNumber !== 0){
+    if (currentNumber !== 0) {
       setOtherNumber(+currentNumber);
     }
-    if (currentSign !== "" && currentNumber !== 0){
+    if (currentSign !== '' && currentNumber !== 0) {
       const total = await equalsHandler();
       setOtherNumber(total);
     }
-      setCurrentNumber(0);
-      setCurrentSign(value);
-      setMovement(value);
-      setApost('');
+    setCurrentNumber(0);
+    setCurrentSign(value);
+    setMovement(value);
+    setApost('');
   };
 
   const divValidation = () => {
@@ -89,7 +88,9 @@ const Numpad = () => {
     }
   };
 
-  useEffect(() => {historyStorage()}, [history, firstLoad]);
+  useEffect(() => {
+    historyStorage();
+  }, [history, firstLoad]);
 
   useEffect(() => {
     let displayStorage = localStorage.getItem('info');
@@ -99,11 +100,10 @@ const Numpad = () => {
     }
   }, []);
 
-  
   const historyStorage = () => {
     //Date.now()
-    //cada registro debe tener un registro de la fecha 
-    
+    //cada registro debe tener un registro de la fecha
+
     const info = {
       hist: history,
       //dat: date,
@@ -128,18 +128,18 @@ const Numpad = () => {
     // arrA.push(4)
 
     // console.log(arrA, arrB)
-    
+
     // // [1, 2, 3, 4], [1, 2, 3]
 
     // let myHistory = history.slice(); // [...history]
     let myHistory = [...history];
     console.log('my history', myHistory);
     let historyString = [
-      otherNumber, 
+      otherNumber,
       currentSign,
       currentNumber,
       //Date.now()
-      ].toString();
+    ].toString();
     myHistory.push(historyString);
     console.log(myHistory, typeof myHistory, 'My History');
     setHistory(myHistory);
@@ -159,13 +159,15 @@ const Numpad = () => {
         setPrevMovement(movement);
         console.log('current number delete', currentNumber);
         console.log(currentNumber + '');
-          if ((currentNumber + '').length === 1) {
-            console.log(currentNumber, ' Es menor o igual a 9');
-            setCurrentNumber(0);
-            setMovement(0);
-            return;
-          }
-        let result = currentNumber.toString().substring(0, currentNumber.toString().length - 1);
+        if ((currentNumber + '').length === 1) {
+          console.log(currentNumber, ' Es menor o igual a 9');
+          setCurrentNumber(0);
+          setMovement(0);
+          return;
+        }
+        let result = currentNumber
+          .toString()
+          .substring(0, currentNumber.toString().length - 1);
         let final = parseInt(result);
         setMovement(currentNumber);
         setCurrentNumber(final);
@@ -225,7 +227,7 @@ const Numpad = () => {
     else{
       console.log("No apostrophe",currentSign.includes("'"));
     };*/
-    console.log("Before Switch", currentSign);
+    console.log('Before Switch', currentSign);
     setEqual(true);
     switch (currentSign) {
       case '+':
@@ -255,17 +257,20 @@ const Numpad = () => {
     return total;
   };
 
-  const periodAdd = () =>{
-    let value = currentNumber + "";
-    if( value.indexOf(".") == -1){
-     value += ".";
-     setCurrentNumber(value);
+  const periodAdd = () => {
+    let value = currentNumber + '';
+    if (value.indexOf('.') == -1) {
+      value += '.';
+      setCurrentNumber(value);
     }
-  }
-
+  };
 
   const arr = [
-    { label: 'C', className: 'numC pinku keyCenter', onClick: () => zeroClickHandler() },
+    {
+      label: 'C',
+      className: 'numC pinku keyCenter',
+      onClick: () => zeroClickHandler(),
+    },
     {
       label: '%',
       className: 'numDivide pinku keyCenter',
@@ -281,9 +286,21 @@ const Numpad = () => {
       className: 'numBack bg-danger keyCenter',
       onClick: () => deleteArrow(),
     },
-    { label: '7', className: 'num7 blu keyCenter', onClick: () => numClickHandler('7') },
-    { label: '8', className: 'num8 blu keyCenter', onClick: () => numClickHandler('8') },
-    { label: '9', className: 'num9 blu keyCenter', onClick: () => numClickHandler('9') },
+    {
+      label: '7',
+      className: 'num7 blu keyCenter',
+      onClick: () => numClickHandler('7'),
+    },
+    {
+      label: '8',
+      className: 'num8 blu keyCenter',
+      onClick: () => numClickHandler('8'),
+    },
+    {
+      label: '9',
+      className: 'num9 blu keyCenter',
+      onClick: () => numClickHandler('9'),
+    },
     {
       label: '-',
       className: 'numMinus pinku keyCenter',
@@ -345,22 +362,23 @@ const Numpad = () => {
       onClick: (value) => periodAdd(),
     },
   ];
-  
 
   return (
     <div className='numPad'>
       <div className='screenCont'>
         <div className='calcScreen'>
           <h2>{otherNumber ? otherNumber : ''}</h2>
-          <h3>{apost}{currentSign}{apost}</h3>
+          <h3>
+            {apost}
+            {currentSign}
+            {apost}
+          </h3>
           <h2>{currentNumber ? currentNumber : error}</h2>
         </div>
         <div className='calcHist'>
           Today's History
           {history.map((history, index) => (
-            <div key={index}>
-              {history.split(",").join(" ")}
-            </div>
+            <div key={index}>{history.split(',').join(' ')}</div>
           ))}
         </div>
       </div>
@@ -396,6 +414,6 @@ const Numpad = () => {
 export default Numpad;
 
 //Si currentSign y currentNumber no estan
-//vacios y presiono simbolo, ejecuto 
+//vacios y presiono simbolo, ejecuto
 // un igual y seteo el resultado como
 // otherNumber y el signo como current sign
