@@ -376,7 +376,7 @@ const Numpad = () => {
           <h2>{currentNumber ? currentNumber : error}</h2>
         </div>
         <div className='calcHist'>
-          Today's History
+          <h4>Today's History</h4>
           {history.map((history, index) => (
             <div key={index}>{history.split(',').join(' ')}</div>
           ))}

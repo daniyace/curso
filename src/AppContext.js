@@ -3,16 +3,19 @@ import React, { createContext, useEffect, useState } from 'react';
 
 const themes = [
   {
-    name: 'light',
-    className: 'light-theme',
+    name: 'Pastel',
+    className: 'pastel-theme',
+    index: 'zero'
   },
   {
-    name: 'dark',
-    className: 'dark-theme',
+    name: 'Gradient',
+    className: 'gradient-theme',
+    index: 'one'
   },
   {
     name: 'retro',
     className: 'retro-theme',
+    index: 'two'
   },
 ];
 
@@ -36,15 +39,12 @@ const ContextProvider = ({ children }) => {
     };
     getCategorias(); */
     const getTheme = JSON.parse(localStorage.getItem('tema_pref'));
-    setThemeChoose(getTheme);
+    setThemeChoose(getTheme || 0);
   }, []);
 
   const changeTheme = (newTheme) => {
     setThemeChoose(newTheme);
     localStorage.setItem('tema_pref', JSON.stringify(newTheme));
-    /* const themeRemember = !themeChoose;
-    localStorage.setItem('tema_pref', JSON.stringify(themeRemember));
-    setThemeChoose((themeChoose) => !themeChoose); */
   };
 
   const navOptionsGlobales = [
@@ -52,6 +52,8 @@ const ContextProvider = ({ children }) => {
     { link: '/contacto', text: 'Contacto' },
     { link: '/productos', text: 'Productos' },
     { link: '/calculadora', text: 'Calculadora' },
+    { link: '/calculadora', text: 'Calculadora' },
+    { link: '/todoList', text: 'To-do List' },
   ];
 
   const initialValue = {

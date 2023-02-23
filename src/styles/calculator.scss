@@ -8,10 +8,14 @@ GENERAL BODY
     font-family: 'Montserrat', sans-serif;
     src: local('Montserrat', sans-serif), url('../fonts/Montserrat/Montserrat-VariableFont_wght.ttf')
     format('woff');
+    font-family: 'digital-7';
+    src: local('digital-7'), url('../fonts/Digital\ 7/digital-7.ttf')
+    format('woff');
 }
 body{
     font-family: 'Montserrat', sans-serif;
 }
+
 .calcCont{
     width: 100%;
     position: absolute;
@@ -25,34 +29,18 @@ body{
     justify-content: center;
     height: 100%;
     align-items: center;
-    background: url('../images/bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     /*background: #D0F4DE;*/
     .calcInner{
         /*background: #333F4B;*/
         /*background: linear-gradient(0deg, hsla(330, 77%, 49%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);*/
-        background: #E4C1F9;
-        color: #fff;
-        border: 5px solid #ffF;
-        border-radius: 10px;
-        padding: 10px;
-        @media(max-width: 767px){
-            max-width: 350px;
-        }
         .numPad{
             .screenCont{
                 display: flex;
                 justify-content: space-around;
                 .calcScreen{
                     display: flex;
-                    background: #8bd3f7;
-                    color: #fff;
-                    border-radius: 15px;
                     padding: 10px;
                     justify-content: center;
-                    border: 3px solid #fff;
                     width: 100%;
                     align-items: center;
                     margin: 10px;
@@ -61,11 +49,7 @@ body{
                 }
                 .calcHist{
                     margin: 10px;
-                    background: #fef49d;
-                    border: 3px solid #fff;
-                    border-radius: 15px;
                     padding: 10px;
-                    color: rgb(121, 121, 121);
                     overflow-y: auto;
                     height: 150px;
                 }
@@ -73,14 +57,7 @@ body{
         }
     }
 }
-.keyCenter{
-    border: 3px solid #fff;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 800;
-}
+
 /* ==================================================================================================================================================================================================================================================================================================
 NUMPAD
 ==================================================================================================================================================================================================================================================================================================*/
@@ -91,18 +68,8 @@ NUMPAD
         grid-template-rows: repeat(5, 1fr);
         grid-column-gap: 5px;
         grid-row-gap: 5px;
-            .blu{
-                background: hsl(200, 87%, 76%);
-            }
-            .pinku{
-                background: #FF99C8;
-            }
             .numBack{
                 border: 3px solid #fff;
-            }
-            .greeny{
-                background: #bbf7d2;
-                color: rgb(121, 121, 121);
             }
             .numC { grid-area: 1 / 1 / 2 / 2; }
             .numDivide { grid-area: 1 / 2 / 2 / 3; }
@@ -125,4 +92,357 @@ NUMPAD
         .num0 { grid-area: 5 / 2 / 6 / 3; }
         .point { grid-area: 5 / 3 / 6 / 4; }
         }
+}
+/* ==================================================================================================================================================================================================================================================================================================
+Style Changes
+==================================================================================================================================================================================================================================================================================================*/
+.calcOuter{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 336px;
+    height: 130px;
+    h1{
+        font-weight: 800;
+    }
+    .buttonCont{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        button{
+            transition: all 0.3s ease-in-out;
+                &:hover{
+                    transform: translateY(10px);
+                }
+        }
+        .zero{
+            background: #8bd3f7;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .one{
+            background: linear-gradient(0deg, hsla(330, 77%, 49%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+            box-shadow: 10px 10px 50px 0px rgb(0 0 0 / 75%);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .two{
+            background: #FDEC56;
+            font-family: 'digital-7';
+            box-shadow: 3px 3px 0px 0px rgb(0 0 0);
+        }
+    }
+}
+.calcInner{
+    height: 377px;
+    @media(max-width: 767px){
+        max-width: 350px;
+    }
+}
+.pastel-theme{
+    background: url('../images/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    .calcOuter{
+        h1{
+            text-align: center;
+            color: #fff;
+            font-weight: 800;
+            background: #E4C1F9;
+            padding: 10px;
+            border-radius: 20px;
+            border: 3px solid #fff;
+        }
+    }
+    .calcInner{
+        background: #E4C1F9;
+        color: #fff;
+        border: 5px solid #ffF;
+        border-radius: 10px;
+        padding: 10px;
+        .calcScreen{
+            background: #8bd3f7;
+            color: #fff;
+            border-radius: 15px;
+            border: 3px solid #fff;
+        }
+        .calcHist{
+            background: #fef49d;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            padding: 10px;
+            color: rgb(121, 121, 121);
+        }
+        .numPad{
+            .keyCenter{
+                border: 3px solid #fff;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 800;
+            }
+            .blu{
+                background: hsl(200, 87%, 76%);
+            }
+            .pinku{
+                background: #FF99C8;
+            }
+            .greeny{
+                background: #bbf7d2;
+                color: rgb(121, 121, 121);
+            }
+        }
+    }
+    .imgCredit{
+        opacity: 0;
+    }
+}
+.gradient-theme{
+    background: url('../images/morphism.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    .calcOuter{
+        h1{
+            background: rgb(224,181,214);
+            background: linear-gradient(326deg, rgba(224,181,214,1) 0%, rgba(207,172,228,1) 51%, rgba(186,157,242,1) 100%);
+            text-align: center;
+            color: #fff;
+            box-shadow: 10px 10px 50px 0px rgb(0 0 0 / 75%);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            border: none;
+            font-weight: 300;
+        }
+    }
+    .calcInner{
+        background: linear-gradient(0deg, hsla(330, 77%, 49%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+        box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px;
+        .numPad{
+            .keyCenter{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 400;
+            }
+            .screenCont{
+                border-bottom: 1px solid #fff;
+                margin-bottom: 10px;
+                .calcScreen{
+                    color: #fff;
+                    border-radius: 15px;
+                    h2{
+                        font-weight: 400;
+                    }
+                }
+                .calcHist{
+                    border-radius: 15px;
+                    padding: 10px;
+                    color: #fff;
+                    h4{
+                        font-weight: 400;
+                    }
+                }
+            }
+            .numGrid{
+                .numC, .numDivide, .numTimes, .numBack, .numMinus, .numPlus, .equals{
+                    font-weight: 700;
+                }
+                .equals{
+                    background: #000;
+                    color: #aa439a;
+                    border-radius: 90px;
+                    width: 53px;
+                    height: 53px;
+                    margin: 0 auto;
+                }
+                .numBack{
+                    background: transparent!important;
+                    border: none;
+                }
+            }
+            .blu{
+                background: transparent;
+            }
+            .pinku{
+                background: transparent;
+            }
+            .greeny{
+                background: transparent;
+            }
+        }
+    }
+    .imgCredit{
+        opacity: 0;
+    }
+}
+.retro-theme{
+    background: url('../images/vintage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'digital-7';
+    .calcOuter{
+        h1{
+            background: #Fff;
+            text-align: center;
+            color: #000;
+            box-shadow: 3px 3px 0px 0px rgb(0 0 0);
+            padding: 10px;
+            border: none;
+            font-weight: 300;
+        }
+    }
+    .calcInner{
+        /*background: #333F4B;*/
+        /*background: linear-gradient(0deg, hsla(330, 77%, 49%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);*/
+        background: #fff;
+        color: #000;
+        border-radius: 10px;
+        padding: 10px;
+        border: 10px solid #000;
+        clip-path: polygon(
+    0px 12px,
+    4px 12px,
+    4px 4px,
+    8px 4px,
+    12px 4px,
+    12px 0px,
+    calc(100% - 12px) 0px,
+    calc(100% - 12px) 4px,
+    calc(100% - 4px) 4px,
+    calc(100% - 4px) 8px,
+    calc(100% - 4px) 12px,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 4px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    12px calc(100% - 4px),
+    4px calc(100% - 4px),
+    4px calc(100% - 8px),
+    4px calc(100% - 12px),
+    0px calc(100% - 12px)
+  );
+        .calcScreen{
+            background: #FDEC56;
+            color: #000;
+            border-radius: 15px;
+            border: 3px solid #fff;
+            clip-path: polygon(
+                0px 12px,
+                6px 12px,
+                6px 6px,
+                12px 6px,
+                12px 0px,
+                calc(100% - 12px) 0px,
+                calc(100% - 12px) 6px,
+                calc(100% - 6px) 6px,
+                calc(100% - 6px) 12px,
+                100% 12px,
+                100% calc(100% - 12px),
+                calc(100% - 6px) calc(100% - 12px),
+                calc(100% - 6px) calc(100% - 6px),
+                calc(100% - 12px) calc(100% - 6px),
+                calc(100% - 12px) 100%,
+                12px 100%,
+                12px calc(100% - 6px),
+                6px calc(100% - 6px),
+                6px calc(100% - 12px),
+                0px calc(100% - 12px)
+            );
+        }
+        .calcHist{
+            background: #76DFFF;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            padding: 10px;
+            color: #000;
+            clip-path: polygon(
+                0px 12px,
+                6px 12px,
+                6px 6px,
+                12px 6px,
+                12px 0px,
+                calc(100% - 12px) 0px,
+                calc(100% - 12px) 6px,
+                calc(100% - 6px) 6px,
+                calc(100% - 6px) 12px,
+                100% 12px,
+                100% calc(100% - 12px),
+                calc(100% - 6px) calc(100% - 12px),
+                calc(100% - 6px) calc(100% - 6px),
+                calc(100% - 12px) calc(100% - 6px),
+                calc(100% - 12px) 100%,
+                12px 100%,
+                12px calc(100% - 6px),
+                6px calc(100% - 6px),
+                6px calc(100% - 12px),
+                0px calc(100% - 12px)
+            );
+        }
+        .numPad{
+            .keyCenter{
+                border: 3px solid #000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 800;
+                box-shadow: 3px 3px 0px 0px rgb(0 0 0);
+                    /*clip-path: polygon(
+                      0px 8px,
+                      4px 8px,
+                      4px 4px,
+                      8px 4px,
+                      8px 0px,
+                      calc(100% - 8px) 0px,
+                      calc(100% - 8px) 4px,
+                      calc(100% - 4px) 4px,
+                      calc(100% - 4px) 8px,
+                      100% 8px,
+                      100% calc(100% - 8px),
+                      calc(100% - 4px) calc(100% - 8px),
+                      calc(100% - 4px) calc(100% - 4px),
+                      calc(100% - 8px) calc(100% - 4px),
+                      calc(100% - 8px) 100%,
+                      8px 100%,
+                      8px calc(100% - 4px),
+                      4px calc(100% - 4px),
+                      4px calc(100% - 8px),
+                      0px calc(100% - 8px)
+                    );*/
+            }
+            .blu{
+                background: #EE4854;
+            }
+            .pinku{
+                background: #f262ff;
+            }
+            .greeny{
+                background: #FDEC56;
+            }
+        }
+    }
+    .imgCredit{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

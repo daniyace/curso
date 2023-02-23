@@ -8,6 +8,7 @@ const navOptions = [
   { link: '/contacto', text: 'Contacto' },
   { link: '/productos', text: 'Productos' },
   { link: '/calculadora', text: 'Calculadora' },
+  { link: '/todo', text: 'To-do List' },
 ];
 
 const Index = () => {

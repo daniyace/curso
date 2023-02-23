@@ -3,14 +3,10 @@ import { AppContext } from '../../AppContext';
 
 const StyleSwapper = () => {
   const { themes, changeTheme } = useContext(AppContext);
-
-  /* const [pastel, setPastel] = useState(false);
-    const [neon, setNeon] = useState(false);
-    const [minimal, setMinimal] = useState(true); */
   return (
-    <div>
-      {themes.map(({ name }, i) => (
-        <button key={name} onClick={() => changeTheme(i)}>
+    <div className='buttonCont'>
+      {themes.map(({ name, index }, i) => (
+        <button key={name}  className={index} onClick={() => changeTheme(i)}>
           {name}
         </button>
       ))}

@@ -10,12 +10,13 @@ function Calculadora() {
   return (
     <div className={`calcCont ${themes[themeChoose].className}`}>
       <div className='calcOuter'>
-        Swap styles here
+        <h1>Swap Styles Here</h1>
         <StyleSwapper />
       </div>
       <div className='calcInner'>
         <Numpad />
       </div>
+      <div className="imgCredit">Image by <a href="https://www.freepik.com/free-vector/vintage-vaporwave-background_12981128.htm#query=retro%20pc%20monitor&position=9&from_view=search&track=ais">Freepik</a></div>
     </div>
   );
 }
