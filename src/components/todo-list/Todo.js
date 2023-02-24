@@ -44,13 +44,34 @@ const Todo = () => {
     const taskRevert = (value) => {
         let tasksBefore = [...tareasHechas];
         let changedTask = tasksBefore.splice(value, 1);
-        console.log('changed task', changedTask);
         setTareasHechas(tasksBefore);
         let listaPendientes = [...tareas, changedTask];
         let tareaAdd = [...listaPendientes];
         setTareas(tareaAdd);
     }
 
+    const saveToLocal = () => {
+        const tasks = tareas;
+        const doneTasks = tareasHechas;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        localStorage.setItem('donetasks', JSON.stringify(doneTasks));
+    }
+
+    /*useEffect(() => {
+        saveToLocal();
+        }
+    );*/
+
+    useEffect(() => {
+        let seeTasks = localStorage.getItem('tasks');
+        let seeDoneTasks = localStorage.getItem('donetasks');
+        console.log('Tareas', seeTasks);
+        console.log('Tareas Hechas', seeDoneTasks);
+    }, []);
+
+    useEffect(() => {
+        saveToLocal();
+      }, [tareas, tareasHechas]);
 
   return (
     <div>
