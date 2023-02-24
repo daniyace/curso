@@ -65,8 +65,17 @@ const Todo = () => {
     useEffect(() => {
         let seeTasks = localStorage.getItem('tasks');
         let seeDoneTasks = localStorage.getItem('donetasks');
-        console.log('Tareas', seeTasks);
-        console.log('Tareas Hechas', seeDoneTasks);
+        /*console.log('Tareas', seeTasks, typeof seeTasks);
+        console.log('Tareas Hechas', seeDoneTasks, typeof seeDoneTasks);*/
+        let tasksArr = JSON.parse(seeTasks);
+        let doneTasksArr = JSON.parse(seeDoneTasks);
+        setTareas(tasksArr);
+        setTareasHechas(doneTasksArr);
+        /*if (tareas.length == 0){
+            setTareas(JSON.parse(seeTasks);
+        }
+        /*
+        setTareasHechas(seeDoneTasks);*/
     }, []);
 
     useEffect(() => {
