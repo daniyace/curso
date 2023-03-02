@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../../AppContext';
 
 //Falta guardar los estados al contexto (tareas y tareas hechas) y también al local storage
 //Agregar un botón para eliminar la tarea
 //También poder borrar las tareas hechas
 const Todo = () => {
     const [tarea, setTarea] = useState("");
-    const [tareas, setTareas] = useState([]);
-    const [tareasHechas, setTareasHechas] = useState([]);
+    const [tareas, setTareas] = useContext(AppContext);
+    const [tareasHechas, setTareasHechas] = useContext(AppContext);
     const getTodoValues = (event) => {
         setTarea(event.target.value);
     }
@@ -67,10 +68,20 @@ const Todo = () => {
         let seeDoneTasks = localStorage.getItem('donetasks');
         /*console.log('Tareas', seeTasks, typeof seeTasks);
         console.log('Tareas Hechas', seeDoneTasks, typeof seeDoneTasks);*/
-        let tasksArr = JSON.parse(seeTasks);
+        if (seeTasks !== undefined) {
+            setTareas(JSON.parse(seeTasks) || [""]);
+        }else{
+            console.log(tareas, typeof tareas)
+        }
+        if (seeDoneTasks !== undefined) {
+            setTareas(JSON.parse(seeDoneTasks) || [""]);
+        }else{
+            console.log(tareasHechas, typeof tareasHechas)
+        }
+        /*let tasksArr = JSON.parse(seeTasks);
         let doneTasksArr = JSON.parse(seeDoneTasks);
         setTareas(tasksArr);
-        setTareasHechas(doneTasksArr);
+        setTareasHechas(doneTasksArr);//
         /*if (tareas.length == 0){
             setTareas(JSON.parse(seeTasks);
         }

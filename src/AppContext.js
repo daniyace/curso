@@ -23,6 +23,8 @@ const ContextProvider = ({ children }) => {
   const [categoriasContext, setCategoriasContext] = useState([]);
   const [themeChoose, setThemeChoose] = useState(0);
   const [history, setHistory] = useState([]);
+  const [tareas, setTareas] = useState([]);
+  const [tareasHechas, setTareasHechas] = useState([]);
 
   useEffect(() => {
    /*  const getCategorias = async () => {
@@ -40,6 +42,14 @@ const ContextProvider = ({ children }) => {
     getCategorias(); */
     const getTheme = JSON.parse(localStorage.getItem('tema_pref'));
     setThemeChoose(getTheme || 0);
+    let seeTasks = localStorage.getItem('tasks');
+    let seeDoneTasks = localStorage.getItem('donetasks');
+    let tasksArr = JSON.parse(seeTasks || [""]);
+    let doneTasksArr = JSON.parse(seeDoneTasks || [""]);
+    setTareas(tasksArr);
+    setTareasHechas(doneTasksArr);
+    console.log("Tareas", tareas, typeof tareas);
+    console.log("Tareas Hechas", tareasHechas, typeof tareasHechas);
   }, []);
 
   const changeTheme = (newTheme) => {
@@ -64,6 +74,8 @@ const ContextProvider = ({ children }) => {
     history,
     setHistory,
     themes,
+    tareas,
+    tareasHechas,
   };
 
   return (
@@ -83,4 +95,8 @@ export const AppContext = createContext({
   setHistory: () => {},
   history: [],
   themes: [],
+  tareas: [],
+  setTareas: () => {},
+  setTareasHechas: () => {},
+  tareasHechas: []
 });
