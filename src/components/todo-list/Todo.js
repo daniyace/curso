@@ -6,8 +6,8 @@ import { AppContext } from '../../AppContext';
 //También poder borrar las tareas hechas
 const Todo = () => {
     const [tarea, setTarea] = useState("");
-    const [tareas, setTareas] = useContext(AppContext);
-    const [tareasHechas, setTareasHechas] = useContext(AppContext);
+    const {tareas, setTareas} = useContext(AppContext);
+    const {tareasHechas, setTareasHechas} = useContext(AppContext);
     const getTodoValues = (event) => {
         setTarea(event.target.value);
     }

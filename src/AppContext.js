@@ -76,6 +76,8 @@ const ContextProvider = ({ children }) => {
     themes,
     tareas,
     tareasHechas,
+    setTareas,
+    setTareasHechas
   };
 
   return (
@@ -97,6 +99,6 @@ export const AppContext = createContext({
   themes: [],
   tareas: [],
   setTareas: () => {},
-  setTareasHechas: () => {},
-  tareasHechas: []
+  tareasHechas: [],
+  setTareasHechas: () => {}
 });
