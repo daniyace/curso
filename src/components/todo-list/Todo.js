@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '../../AppContext';
+import '../../styles/todolist.scss';
 
 //Falta guardar los estados al contexto (tareas y tareas hechas) y también al local storage
 //Agregar un botón para eliminar la tarea
@@ -94,37 +95,60 @@ const Todo = () => {
       }, [tareas, tareasHechas]);
 
   return (
-    <div>
-        <div>
-        {tareas.length > 0 && <h4>Tareas Por Hacer</h4>}
-            {tareas.map((t, index) => (
-                <div key={index}>
-                    {t}
-                    <button value="Task Done" onClick={() =>
-                        taskDone(index)
-                    }>Done</button>
-                </div>
-            ))}
-        </div>
-        <div>
-        {tareasHechas.length > 0 && <h4>Tareas Terminadas</h4>}
-            {tareasHechas.map((t, index) => (
-                <div key={index}>
-                    {t}
-                    <button value="Task Delete" onClick={() =>
-                        taskDelete(index)
-                    }>Delete</button>
-                    <button value="Task Revert" onClick={() =>
-                        taskRevert(index)
-                    }>Revert</button>
-                </div>
-            ))}
-        </div>
+    <div id="todoCont">
+        <div id="formcont">
         <form>
             <label>Add your task here:</label>
-            <input type="text" value={tarea} onChange={getTodoValues}></input>
-            <input type="submit" value="Add here" onClick={addTodoToList}></input>
+            <input type="text" value={tarea} id="text" onChange={getTodoValues}></input>
+            <input type="submit" value="Add here" id="submit" onClick={addTodoToList}></input>
         </form>
+        </div>
+        <div id="pending">
+            <div id="innerpending">
+                <h4>Tareas Por Hacer</h4>
+                    {tareas.map((t, index) => (
+                        <div key={index} id="index">
+                            <h4>{t}</h4>
+                            <button value="Task Done" onClick={() =>
+                                taskDone(index)
+                            }>Done</button>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+        <div id="done">
+            <div id="innerdone">
+        <h4>Tareas Terminadas</h4>
+            {tareasHechas.map((t, index) => (
+                <div key={index} id="doneIndex">
+                    <h4>{t}</h4>
+                    <div id="buttoncont">
+                    <button id="delete" value="Task Delete" onClick={() =>
+                        taskDelete(index)
+                    }>Delete</button>
+                    <button id="revert" value="Task Revert" onClick={() =>
+                        taskRevert(index)
+                    }>Revert</button>
+                    </div>
+                </div>
+            ))}
+            </div>
+        </div>
+        <div id="credit">
+            <h4>
+                Cat Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </h4>
+            <h4>
+                glasses Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </h4>
+            <h4>
+                noteheader Illustration by <a href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">Oleg Shcherba</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </h4>
+            <h4>
+                rabbit Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </h4>
+        </div>
     </div>
   )
 }
